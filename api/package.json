@@ -7,9 +7,7 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "rebuild": "electron-rebuild -f -w better-sqlite3",
-    "postinstall": "electron-builder install-app-deps"
+    "strapi": "strapi"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.13.6",
