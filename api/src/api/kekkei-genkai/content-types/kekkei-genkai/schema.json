@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "kekkei_genkais",
+  "info": {
+    "singularName": "kekkei-genkai",
+    "pluralName": "kekkei-genkais",
+    "displayName": "Kekkei Genkai",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "clan": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::clan.clan",
+      "inversedBy": "kekkei_genkai"
+    },
+    "classification": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::jutsu-type.jutsu-type"
+    },
+    "wielders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::character.character",
+      "inversedBy": "kekkei_genkai"
+    },
+    "jutsus": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "inversedBy": "kekkei_genkai"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

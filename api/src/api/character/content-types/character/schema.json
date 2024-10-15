@@ -1,0 +1,110 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characters",
+  "info": {
+    "singularName": "character",
+    "pluralName": "characters",
+    "displayName": "Character",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Alive",
+        "Deceased",
+        "Incapacitated",
+        "Unknown"
+      ]
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "Male",
+        "Female"
+      ]
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "affiliations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::village.village"
+    },
+    "clan": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clan.clan",
+      "inversedBy": "characters"
+    },
+    "ninja_rank": {
+      "type": "enumeration",
+      "enum": [
+        "Genin",
+        "Chūnin",
+        "Tokubetsu Jōnin",
+        "Jōnin",
+        "Kage",
+        "ANBU"
+      ]
+    },
+    "nature": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::nature-type.nature-type",
+      "inversedBy": "users"
+    },
+    "jutsus": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "inversedBy": "users"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "kekkei_genkai": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::kekkei-genkai.kekkei-genkai",
+      "mappedBy": "wielders"
+    },
+    "teams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::team.team",
+      "mappedBy": "members"
+    },
+    "teams_leader": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::team.team",
+      "inversedBy": "leaders"
+    },
+    "alias": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string"
+    }
+  }
+}

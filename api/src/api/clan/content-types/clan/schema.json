@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clans",
+  "info": {
+    "singularName": "clan",
+    "pluralName": "clans",
+    "displayName": "Clan",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "affiliation": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::village.village"
+    },
+    "jutsus": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "mappedBy": "clan"
+    },
+    "symbol": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "kekkei_genkai": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::kekkei-genkai.kekkei-genkai",
+      "mappedBy": "clan"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "characters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::character.character",
+      "mappedBy": "clan"
+    }
+  }
+}

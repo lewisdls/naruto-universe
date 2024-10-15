@@ -1,0 +1,106 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jutsus",
+  "info": {
+    "singularName": "jutsu",
+    "pluralName": "jutsus",
+    "displayName": "Jutsu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::character.character",
+      "mappedBy": "jutsus"
+    },
+    "nature": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::nature-type.nature-type",
+      "mappedBy": "jutsus"
+    },
+    "classification": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu-type.jutsu-type",
+      "inversedBy": "jutsus"
+    },
+    "rank": {
+      "type": "enumeration",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "S"
+      ]
+    },
+    "class": {
+      "type": "enumeration",
+      "enum": [
+        "Offensive",
+        "Defensive",
+        "Supplementary"
+      ]
+    },
+    "range": {
+      "type": "enumeration",
+      "enum": [
+        "Short range",
+        "Short-to-mid range",
+        "Mid-range",
+        "Mid-to-long range",
+        "Long range",
+        "All ranges"
+      ]
+    },
+    "parent_jutsu": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "inversedBy": "derived_jutsu"
+    },
+    "derived_jutsu": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "inversedBy": "parent_jutsu"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "kekkei_genkai": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::kekkei-genkai.kekkei-genkai",
+      "mappedBy": "jutsus"
+    },
+    "clan": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::clan.clan",
+      "inversedBy": "jutsus"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

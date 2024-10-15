@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jutsu_types",
+  "info": {
+    "singularName": "jutsu-type",
+    "pluralName": "jutsu-types",
+    "displayName": "Jutsu Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "jutsus": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::jutsu.jutsu",
+      "mappedBy": "classification"
+    }
+  }
+}
