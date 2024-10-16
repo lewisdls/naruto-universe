@@ -36,22 +36,11 @@
     },
     "rank": {
       "type": "enumeration",
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "S"
-      ]
+      "enum": ["A", "B", "C", "D", "E", "S"]
     },
     "class": {
       "type": "enumeration",
-      "enum": [
-        "Offensive",
-        "Defensive",
-        "Supplementary"
-      ]
+      "enum": ["Offensive", "Defensive", "Supplementary"]
     },
     "range": {
       "type": "enumeration",
@@ -74,18 +63,13 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::jutsu.jutsu",
-      "inversedBy": "parent_jutsu"
+      "mappedBy": "parent_jutsu"
     },
     "images": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "kekkei_genkai": {
       "type": "relation",
