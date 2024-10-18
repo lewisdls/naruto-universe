@@ -15,7 +15,7 @@
     "name": {
       "type": "string"
     },
-    "status": {
+    "state": {
       "type": "enumeration",
       "enum": [
         "Alive",
@@ -84,18 +84,6 @@
       "relation": "manyToMany",
       "target": "api::kekkei-genkai.kekkei-genkai",
       "mappedBy": "wielders"
-    },
-    "teams": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::team.team",
-      "mappedBy": "members"
-    },
-    "teams_leader": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::team.team",
-      "inversedBy": "leaders"
     },
     "alias": {
       "type": "string"

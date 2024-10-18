@@ -19,16 +19,12 @@ interface FiltersProps {
 
 interface Clan {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface Affiliation {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 const CharacterFilters = ({ onFilterChange }: FiltersProps) => {
@@ -109,15 +105,15 @@ const CharacterFilters = ({ onFilterChange }: FiltersProps) => {
             {clans.map((clan) => (
               <div key={clan.id} className="flex items-center gap-1 w-max">
                 <Checkbox
-                  id={clan.attributes.name.toLowerCase()}
-                  checked={selectedClans.includes(clan.attributes.name)}
-                  onCheckedChange={() => handleClanChange(clan.attributes.name)}
+                  id={clan.name.toLowerCase()}
+                  checked={selectedClans.includes(clan.name)}
+                  onCheckedChange={() => handleClanChange(clan.name)}
                 />
                 <label
-                  htmlFor={clan.attributes.name.toLowerCase()}
+                  htmlFor={clan.name.toLowerCase()}
                   className="text-base leading-none"
                 >
-                  {clan.attributes.name}
+                  {clan.name}
                 </label>
               </div>
             ))}
@@ -129,19 +125,15 @@ const CharacterFilters = ({ onFilterChange }: FiltersProps) => {
             {affiliations.map((affiliation) => (
               <div key={affiliation.id} className="flex items-center gap-1">
                 <Checkbox
-                  id={affiliation.attributes.name.toLowerCase()}
-                  checked={selectedAffiliations.includes(
-                    affiliation.attributes.name
-                  )}
-                  onCheckedChange={() =>
-                    handleVillageChange(affiliation.attributes.name)
-                  }
+                  id={affiliation.name.toLowerCase()}
+                  checked={selectedAffiliations.includes(affiliation.name)}
+                  onCheckedChange={() => handleVillageChange(affiliation.name)}
                 />
                 <label
-                  htmlFor={affiliation.attributes.name.toLowerCase()}
+                  htmlFor={affiliation.name.toLowerCase()}
                   className="text-base leading-none"
                 >
-                  {affiliation.attributes.name}
+                  {affiliation.name}
                 </label>
               </div>
             ))}

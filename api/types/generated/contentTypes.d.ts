@@ -498,7 +498,7 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   };
   attributes: {
     name: Schema.Attribute.String;
-    status: Schema.Attribute.Enumeration<
+    state: Schema.Attribute.Enumeration<
       ['Alive', 'Deceased', 'Incapacitated', 'Unknown']
     >;
     gender: Schema.Attribute.Enumeration<['Male', 'Female']>;
@@ -532,8 +532,6 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::kekkei-genkai.kekkei-genkai'
     >;
-    teams: Schema.Attribute.Relation<'manyToMany', 'api::team.team'>;
-    teams_leader: Schema.Attribute.Relation<'manyToMany', 'api::team.team'>;
     alias: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     color: Schema.Attribute.String;
@@ -587,34 +585,6 @@ export interface ApiClanClan extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::clan.clan'>;
-  };
-}
-
-export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
-  collectionName: 'countries';
-  info: {
-    singularName: 'country';
-    pluralName: 'countries';
-    displayName: 'Country';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Schema.Attribute.String;
-    villages: Schema.Attribute.Relation<'oneToMany', 'api::village.village'>;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::country.country'
-    >;
   };
 }
 
@@ -680,8 +650,6 @@ export interface ApiJutsuJutsu extends Struct.CollectionTypeSchema {
         'All ranges',
       ]
     >;
-    parent_jutsu: Schema.Attribute.Relation<'manyToMany', 'api::jutsu.jutsu'>;
-    derived_jutsu: Schema.Attribute.Relation<'manyToMany', 'api::jutsu.jutsu'>;
     images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -692,6 +660,8 @@ export interface ApiJutsuJutsu extends Struct.CollectionTypeSchema {
     >;
     clan: Schema.Attribute.Relation<'manyToMany', 'api::clan.clan'>;
     description: Schema.Attribute.RichText;
+    parent_jutsu: Schema.Attribute.Relation<'manyToMany', 'api::jutsu.jutsu'>;
+    derived_jutsu: Schema.Attribute.Relation<'manyToMany', 'api::jutsu.jutsu'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -804,48 +774,6 @@ export interface ApiNatureTypeNatureType extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
-  collectionName: 'teams';
-  info: {
-    singularName: 'team';
-    pluralName: 'teams';
-    displayName: 'Team';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Schema.Attribute.String;
-    description: Schema.Attribute.RichText;
-    members: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::character.character'
-    >;
-    leaders: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::character.character'
-    >;
-    affiliations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::village.village'
-    >;
-    images: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'>;
-  };
-}
-
 export interface ApiVillageVillage extends Struct.CollectionTypeSchema {
   collectionName: 'villages';
   info: {
@@ -860,7 +788,6 @@ export interface ApiVillageVillage extends Struct.CollectionTypeSchema {
   attributes: {
     name: Schema.Attribute.String;
     english_name: Schema.Attribute.String;
-    country: Schema.Attribute.Relation<'manyToOne', 'api::country.country'>;
     leader: Schema.Attribute.String;
     symbol: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
@@ -1256,13 +1183,11 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::character.character': ApiCharacterCharacter;
       'api::clan.clan': ApiClanClan;
-      'api::country.country': ApiCountryCountry;
       'api::header.header': ApiHeaderHeader;
       'api::jutsu.jutsu': ApiJutsuJutsu;
       'api::jutsu-type.jutsu-type': ApiJutsuTypeJutsuType;
       'api::kekkei-genkai.kekkei-genkai': ApiKekkeiGenkaiKekkeiGenkai;
       'api::nature-type.nature-type': ApiNatureTypeNatureType;
-      'api::team.team': ApiTeamTeam;
       'api::village.village': ApiVillageVillage;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;

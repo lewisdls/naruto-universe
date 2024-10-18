@@ -18,46 +18,28 @@ import { MdError } from "react-icons/md";
 
 interface ImageData {
   id: number;
-  attributes: {
-    url: string;
-  };
+  url: string;
 }
 
 interface NatureData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface VillageData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface Character {
-  id: number;
-  attributes: {
+  documentId: string;
+  name: string;
+  clan: {
     name: string;
-    clan: {
-      data: {
-        attributes: {
-          name: string;
-        };
-      };
-    };
-    nature: {
-      data: NatureData[];
-    };
-    affiliations: {
-      data: VillageData[];
-    };
-    images: {
-      data: ImageData[];
-    };
   };
+  nature: NatureData[];
+  affiliations: VillageData[];
+  images: ImageData[];
 }
 
 const Characters = () => {
@@ -94,23 +76,22 @@ const Characters = () => {
     loadData();
   }, []);
 
+  console.log(filters);
+
   useEffect(() => {
     // Filter the characters based on selected clans and affiliations
     const filtered = characters.filter((character) => {
       const matchesClan =
         filters.clans.length === 0 ||
-        filters.clans.includes(character.attributes.clan.data?.attributes.name);
+        filters.clans.includes(character.clan?.name);
       const matchesVillage =
         filters.affiliations.length === 0 ||
-        character.attributes.affiliations.data.some(
-          (affiliation: { attributes: { name: string } }) =>
-            filters.affiliations.includes(affiliation.attributes.name)
+        character.affiliations.some((affiliation: { name: string }) =>
+          filters.affiliations.includes(affiliation.name)
         );
       const matchesName =
         filters.name === "" ||
-        character.attributes.name
-          .toLowerCase()
-          .includes(filters.name.toLowerCase());
+        character.name.toLowerCase().includes(filters.name.toLowerCase());
       return matchesClan && matchesVillage && matchesName;
     });
     setFilteredCharacters(filtered);
@@ -151,25 +132,21 @@ const Characters = () => {
           ) : paginatedCharacters.length > 0 ? (
             paginatedCharacters.map((character: Character) => (
               <Link
-                href={`/characters/${character.id}`}
-                key={character.id}
+                href={`/characters/${character.documentId}`}
+                key={character.documentId}
                 className="flex flex-col border-[#242424] border-[1px] rounded-md w-full"
               >
                 <div className="xl:h-[250px] w-full">
                   <img
                     src={`http://localhost:1337${
-                      character.attributes.images.data[
-                        character.attributes.images.data.length - 1
-                      ].attributes.url
+                      character.images[character.images.length - 1].url
                     }`}
-                    alt={character.attributes.name}
+                    alt={character.name}
                     className="object-cover w-full h-full rounded-t-md"
                   />
                 </div>
                 <div className="p-3">
-                  <p className="font-medium text-lg">
-                    {character.attributes.name}
-                  </p>
+                  <p className="font-medium text-lg">{character.name}</p>
                 </div>
               </Link>
             ))

@@ -8,106 +8,63 @@ import Link from "next/link";
 
 interface ImgData {
   id: number;
-  attributes: {
-    caption: string;
-    url: string;
-  };
+  caption: string;
+  url: string;
 }
 
 interface ClassificationData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface NatureData {
   id: number;
-  attributes: {
-    name: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  name: string;
+  image: {
+    url: string;
   };
 }
 
 interface KekkeiData {
   id: number;
-  attributes: {
-    name: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  name: string;
+  image: {
+    url: string;
   };
 }
 
 interface ParentData {
-  id: number;
-  attributes: {
-    name: string;
-    images: {
-      data: ImgData[];
-    };
-  };
+  documentId: string;
+  name: string;
+  images: ImgData[];
 }
+
 interface DerivedData {
-  id: number;
-  attributes: {
-    name: string;
-    images: {
-      data: ImgData[];
-    };
-  };
+  documentId: string;
+  name: string;
+  images: ImgData[];
 }
 
 interface UserData {
-  id: number;
-  attributes: {
-    name: string;
-    images: {
-      data: ImgData[];
-    };
-  };
+  documentId: string;
+  name: string;
+  images: ImgData[];
 }
 
 interface Jutsu {
   id: number;
-  attributes: {
-    name: string;
-    rank: string;
-    class: string;
-    range: string;
-    classification: {
-      data: ClassificationData[];
-    };
-    description: string;
-    nature: {
-      data: NatureData[];
-    };
-    kekkei_genkai: {
-      data: KekkeiData[];
-    };
-    parent_jutsu: {
-      data: ParentData[];
-    };
-    derived_jutsu: {
-      data: DerivedData[];
-    };
-    users: {
-      data: UserData[];
-    };
-    images: {
-      data: ImgData[];
-    };
-  };
+  name: string;
+  rank: string;
+  class: string;
+  range: string;
+  classification: ClassificationData[];
+  description: string;
+  nature: NatureData[];
+  kekkei_genkai: KekkeiData[];
+  parent_jutsu: ParentData[];
+  derived_jutsu: DerivedData[];
+  users: UserData[];
+  images: ImgData[];
 }
 
 const Jutsu = () => {
@@ -115,7 +72,7 @@ const Jutsu = () => {
   const [jutsu, setJutsu] = useState<Jutsu | null>(null);
   const [loading, setLoading] = useState(true);
   const [slide, setSlide] = useState(0);
-  const maxSlides = jutsu?.attributes.images.data?.length || 0;
+  const maxSlides = jutsu?.images?.length || 0;
 
   useEffect(() => {
     const loadData = async () => {
@@ -149,29 +106,29 @@ const Jutsu = () => {
 
   const renderedItems = [];
 
-  jutsu?.attributes.classification.data &&
-    jutsu?.attributes.classification.data.length > 0 &&
+  jutsu?.classification &&
+    jutsu?.classification.length > 0 &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Classification</h2>
-        {jutsu?.attributes.classification.data.map((c) => (
+        {jutsu?.classification.map((c) => (
           <p key={c.id} className="leading-relaxed">
-            {c.attributes.name}
+            {c.name}
           </p>
         ))}
       </div>
     );
 
-  jutsu?.attributes.nature.data &&
-    jutsu?.attributes.nature.data.length > 0 &&
+  jutsu?.nature &&
+    jutsu?.nature.length > 0 &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Nature</h2>
-        {jutsu?.attributes.nature.data.map((n) => (
+        {jutsu?.nature.map((n) => (
           <div key={n.id} className="flex items-center gap-2 leading-relaxed">
-            <p>{n.attributes.name}</p>
+            <p>{n.name}</p>
             <img
-              src={`http://localhost:1337${n.attributes.image.data.attributes.url}`}
+              src={`http://localhost:1337${n.image.url}`}
               className="h-5"
               alt=""
             />
@@ -180,40 +137,40 @@ const Jutsu = () => {
       </div>
     );
 
-  jutsu?.attributes.class &&
+  jutsu?.class &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Class</h2>
-        <p>{jutsu?.attributes.class}</p>
+        <p>{jutsu?.class}</p>
       </div>
     );
 
-  jutsu?.attributes.rank &&
+  jutsu?.rank &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Rank</h2>
-        <p>{jutsu?.attributes.rank}</p>
+        <p>{jutsu?.rank}</p>
       </div>
     );
 
-  jutsu?.attributes.range &&
+  jutsu?.range &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Range</h2>
-        <p>{jutsu?.attributes.range ?? "N/A"}</p>
+        <p>{jutsu?.range ?? "N/A"}</p>
       </div>
     );
 
-  jutsu?.attributes.kekkei_genkai.data &&
-    jutsu?.attributes.kekkei_genkai.data.length > 0 &&
+  jutsu?.kekkei_genkai &&
+    jutsu?.kekkei_genkai.length > 0 &&
     renderedItems.push(
       <div className="flex flex-col items-center md:block">
         <h2 className="text-2xl font-medium mb-2">Kekkei Genkai</h2>
-        {jutsu?.attributes.kekkei_genkai.data.map((kekkei) => (
+        {jutsu?.kekkei_genkai.map((kekkei) => (
           <div key={kekkei.id} className="flex items-center gap-2">
-            <p>{kekkei.attributes.name}</p>
+            <p>{kekkei.name}</p>
             <img
-              src={`http://localhost:1337${kekkei.attributes.image.data.attributes.url}`}
+              src={`http://localhost:1337${kekkei.image.url}`}
               className="h-5"
               alt=""
             />
@@ -231,11 +188,9 @@ const Jutsu = () => {
     <div>
       <div className="flex flex-col lg:flex-row items-center">
         <div className="p-6 flex flex-col gap-6 w-full h-full">
-          <h1 className="text-5xl font-bold text-center">
-            {jutsu?.attributes.name}
-          </h1>
+          <h1 className="text-5xl font-bold text-center">{jutsu?.name}</h1>
           <p className="text-center lg:text-left text-lg leading-relaxed">
-            {jutsu?.attributes.description}
+            {jutsu?.description}
           </p>
           <div
             className={`grid grid-cols-2 ${
@@ -245,31 +200,31 @@ const Jutsu = () => {
             {renderedItems}
           </div>
         </div>
-        {jutsu?.attributes.images.data && (
+        {jutsu?.images && (
           <div className="overflow-hidden relative w-full h-full">
             <div className="flex w-full h-full">
-              {jutsu?.attributes.images.data.map((image) => (
+              {jutsu?.images.map((image) => (
                 <div
                   key={image.id}
                   className="min-w-full min-h-full transition-all duration-500 relative"
                   style={{ transform: `translateX(-${slide * 100}%)` }}
                 >
                   <img
-                    src={"http://localhost:1337" + image.attributes.url}
+                    src={"http://localhost:1337" + image.url}
                     className="w-full h-full object-cover"
                     alt=""
                   />
-                  {image.attributes.caption && (
+                  {image.caption && (
                     <div className="absolute top-0 left-0 right-0 p-4 bg-black bg-opacity-50 transition-all flex items-center justify-center">
                       <p className="text-white text-lg text-center">
-                        {image.attributes.caption}
+                        {image.caption}
                       </p>
                     </div>
                   )}
                 </div>
               ))}
             </div>
-            {jutsu?.attributes.images.data.length !== 1 && (
+            {jutsu?.images.length !== 1 && (
               <div>
                 <button
                   onClick={handlePreviousSlide}
@@ -289,26 +244,26 @@ const Jutsu = () => {
         )}
       </div>
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] px-6 pb-6 gap-6 justify-center">
-        {jutsu?.attributes?.parent_jutsu?.data?.length !== 0 && (
+        {jutsu?.parent_jutsu.length !== 0 && (
           <div className="flex flex-col gap-4 w-full">
             <h2 className="my-6 pb-3 text-2xl text-center font-medium border-b-2 border-[#313131]">
               Parent Jutsu
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4 w-full">
-              {jutsu?.attributes.parent_jutsu.data.map((parent) => (
+              {jutsu?.parent_jutsu.map((parent) => (
                 <Link
-                  href={`/jutsus/${parent.id}`}
-                  key={parent.id}
+                  href={`/jutsus/${parent.documentId}`}
+                  key={parent.documentId}
                   className="relative group w-full"
                 >
                   <img
-                    src={`http://localhost:1337${parent.attributes.images.data[0].attributes.url}`}
-                    alt={parent.attributes.name}
+                    src={`http://localhost:1337${parent.images[0].url}`}
+                    alt={parent.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-100 group-hover:opacity-0 transition-all flex items-center justify-center">
                     <p className="text-white text-lg text-center">
-                      {parent.attributes.name}
+                      {parent.name}
                     </p>
                   </div>
                 </Link>
@@ -316,26 +271,26 @@ const Jutsu = () => {
             </div>
           </div>
         )}
-        {jutsu?.attributes?.derived_jutsu?.data?.length !== 0 && (
+        {jutsu?.derived_jutsu.length !== 0 && (
           <div className="flex flex-col gap-4 w-full">
             <h2 className="my-6 pb-3 text-2xl text-center font-medium border-b-2 border-[#313131]">
               Derived Jutsu
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4 w-full">
-              {jutsu?.attributes.derived_jutsu.data.map((derived) => (
+              {jutsu?.derived_jutsu.map((derived) => (
                 <Link
-                  href={`/jutsus/${derived.id}`}
-                  key={derived.id}
+                  href={`/jutsus/${derived.documentId}`}
+                  key={derived.documentId}
                   className="relative group w-full"
                 >
                   <img
-                    src={`http://localhost:1337${derived.attributes.images.data[0].attributes.url}`}
-                    alt={derived.attributes.name}
+                    src={`http://localhost:1337${derived.images[0].url}`}
+                    alt={derived.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-100 group-hover:opacity-0 transition-all flex items-center justify-center">
                     <p className="text-white text-lg text-center">
-                      {derived.attributes.name}
+                      {derived.name}
                     </p>
                   </div>
                 </Link>
@@ -343,30 +298,28 @@ const Jutsu = () => {
             </div>
           </div>
         )}
-        {jutsu?.attributes?.users?.data?.length !== 0 && (
+        {jutsu?.users.length !== 0 && (
           <div className="flex flex-col gap-4">
             <h2 className="my-6 pb-3 text-2xl text-center font-medium border-b-2 border-[#313131]">
               Users
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4">
-              {jutsu?.attributes.users.data.map((user) => (
+              {jutsu?.users.map((user) => (
                 <Link
-                  href={`/characters/${user.id}`}
-                  key={user.id}
+                  href={`/characters/${user.documentId}`}
+                  key={user.documentId}
                   className="relative group"
                 >
                   <img
                     src={`http://localhost:1337${
-                      user.attributes.images.data[
-                        user.attributes.images.data.length - 1
-                      ].attributes.url
+                      user.images[user.images.length - 1].url
                     }`}
-                    alt={user.attributes.name}
+                    alt={user.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-100 group-hover:opacity-0 transition-all flex items-center justify-center">
                     <p className="text-white text-lg text-center">
-                      {user.attributes.name}
+                      {user.name}
                     </p>
                   </div>
                 </Link>

@@ -18,48 +18,30 @@ import { MdError } from "react-icons/md";
 
 interface ImageData {
   id: number;
-  attributes: {
-    url: string;
-  };
+  url: string;
 }
 
 interface NatureData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 interface KekkeiData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface ClassificationData {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface Jutsu {
-  id: number;
-  attributes: {
-    name: string;
-    nature: {
-      data: NatureData[];
-    };
-    kekkei_genkai: {
-      data: KekkeiData[];
-    };
-    classification: {
-      data: ClassificationData[];
-    };
-    images: {
-      data: ImageData[];
-    };
-  };
+  documentId: string;
+  name: string;
+  nature: NatureData[];
+  kekkei_genkai: KekkeiData[];
+  classification: ClassificationData[];
+  images: ImageData[];
 }
 
 const Jutsus = () => {
@@ -103,27 +85,22 @@ const Jutsus = () => {
     const filtered = jutsus.filter((jutsu) => {
       const matchesNature =
         filters.natures.length === 0 ||
-        jutsu.attributes.nature.data.some(
-          (nature: { attributes: { name: string } }) =>
-            filters.natures.includes(nature.attributes.name)
+        jutsu.nature.some((nature: { name: string }) =>
+          filters.natures.includes(nature.name)
         );
       const matchesKekkeiGenkai =
         filters.kekkeiGenkais.length === 0 ||
-        jutsu.attributes.kekkei_genkai.data.some(
-          (kekkeiGenkai: { attributes: { name: string } }) =>
-            filters.kekkeiGenkais.includes(kekkeiGenkai.attributes.name)
+        jutsu.kekkei_genkai.some((kekkeiGenkai: { name: string }) =>
+          filters.kekkeiGenkais.includes(kekkeiGenkai.name)
         );
       const matchesClassification =
         filters.classifications.length === 0 ||
-        jutsu.attributes.classification.data.some(
-          (classification: { attributes: { name: string } }) =>
-            filters.classifications.includes(classification.attributes.name)
+        jutsu.classification.some((classification: { name: string }) =>
+          filters.classifications.includes(classification.name)
         );
       const matchesName =
         filters.name === "" ||
-        jutsu.attributes.name
-          .toLowerCase()
-          .includes(filters.name.toLowerCase());
+        jutsu.name.toLowerCase().includes(filters.name.toLowerCase());
       return (
         matchesNature &&
         matchesKekkeiGenkai &&
@@ -275,26 +252,24 @@ const Jutsus = () => {
           ) : paginatedJutsus.length > 0 ? (
             paginatedJutsus.map((jutsu: Jutsu) => (
               <Link
-                href={`/jutsus/${jutsu.id}`}
-                key={jutsu.id}
+                href={`/jutsus/${jutsu.documentId}`}
+                key={jutsu.documentId}
                 className="flex flex-col border-[#242424] border-[1px] rounded-md w-fit"
               >
-                {jutsu.attributes.images.data && (
+                {jutsu.images && (
                   <div className="md:h-[250px] w-full">
                     <img
                       src={`http://localhost:1337${
-                        jutsu.attributes.images.data[
-                          jutsu.attributes.images.data.length - 1
-                        ].attributes.url
+                        jutsu.images[jutsu.images.length - 1].url
                       }`}
-                      alt={jutsu.attributes.name}
+                      alt={jutsu.name}
                       className="object-cover w-full h-full rounded-t-md"
                     />
                   </div>
                 )}
                 <div className="p-3">
                   <p className="font-medium text-lg text-center lg:text-left">
-                    {jutsu.attributes.name}
+                    {jutsu.name}
                   </p>
                 </div>
               </Link>

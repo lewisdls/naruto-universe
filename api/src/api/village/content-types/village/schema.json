@@ -18,12 +18,6 @@
     "english_name": {
       "type": "string"
     },
-    "country": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::country.country",
-      "inversedBy": "villages"
-    },
     "leader": {
       "type": "string"
     },

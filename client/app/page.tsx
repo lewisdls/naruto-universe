@@ -6,16 +6,10 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Header {
-  attributes: {
-    title: string;
-    subtitle: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  title: string;
+  subtitle: string;
+  image: {
+    url: string;
   };
 }
 
@@ -63,7 +57,7 @@ export default function Home() {
         <div className="flex items-center justify-center h-[calc(100vh-3.5rem)]">
           <div className="relative h-full w-full after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-50">
             <img
-              src={`http://localhost:1337${header?.attributes.image.data.attributes.url}`}
+              src={`http://localhost:1337${header?.image.url}`}
               alt=""
               className={`h-full w-full object-cover transition-all duration-500 ${
                 isVisible ? "opacity-100" : "opacity-0"
@@ -75,8 +69,8 @@ export default function Home() {
               isVisible ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h1 className="text-6xl font-bold">{header?.attributes.title}</h1>
-            <p className="text-xl">{header?.attributes.subtitle}</p>
+            <h1 className="text-6xl font-bold">{header?.title}</h1>
+            <p className="text-xl">{header?.subtitle}</p>
             <div className="flex items-center gap-3 mt-4">
               <Link
                 href="/characters"

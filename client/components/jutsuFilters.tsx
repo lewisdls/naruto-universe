@@ -20,36 +20,22 @@ interface FiltersProps {
 
 interface Nature {
   id: number;
-  attributes: {
-    name: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  name: string;
+  image: {
+    url: string;
   };
 }
 
 interface Classification {
   id: number;
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
 interface KekkeiGenkai {
   id: number;
-  attributes: {
-    name: string;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
+  name: string;
+  image: {
+    url: string;
   };
 }
 
@@ -156,19 +142,19 @@ const JutsuFilters = ({ onFilterChange }: FiltersProps) => {
             {classifications.map((classification) => (
               <div key={classification.id} className="flex items-center gap-1">
                 <Checkbox
-                  id={classification.attributes.name.toLowerCase()}
+                  id={classification.name.toLowerCase()}
                   checked={selectedClassifications.includes(
-                    classification.attributes.name
+                    classification.name
                   )}
                   onCheckedChange={() =>
-                    handleClassificationChange(classification.attributes.name)
+                    handleClassificationChange(classification.name)
                   }
                 />
                 <label
-                  htmlFor={classification.attributes.name.toLowerCase()}
+                  htmlFor={classification.name.toLowerCase()}
                   className="text-base leading-none"
                 >
-                  {classification.attributes.name}
+                  {classification.name}
                 </label>
               </div>
             ))}
@@ -180,19 +166,17 @@ const JutsuFilters = ({ onFilterChange }: FiltersProps) => {
             {natures.map((nature) => (
               <div key={nature.id} className="flex items-center gap-1 w-max">
                 <Checkbox
-                  id={nature.attributes.name.toLowerCase()}
-                  checked={selectedNatures.includes(nature.attributes.name)}
-                  onCheckedChange={() =>
-                    handleNatureChange(nature.attributes.name)
-                  }
+                  id={nature.name.toLowerCase()}
+                  checked={selectedNatures.includes(nature.name)}
+                  onCheckedChange={() => handleNatureChange(nature.name)}
                 />
                 <label
-                  htmlFor={nature.attributes.name.toLowerCase()}
+                  htmlFor={nature.name.toLowerCase()}
                   className="flex items-center gap-2 text-base leading-none"
                 >
-                  {nature.attributes.name}{" "}
+                  {nature.name}{" "}
                   <img
-                    src={`http://localhost:1337${nature.attributes.image.data.attributes.url}`}
+                    src={`http://localhost:1337${nature.image.url}`}
                     className="h-5"
                     alt=""
                   />
@@ -209,21 +193,19 @@ const JutsuFilters = ({ onFilterChange }: FiltersProps) => {
             {kekkeiGenkais.map((kekkeiGenkai) => (
               <div key={kekkeiGenkai.id} className="flex items-center gap-1">
                 <Checkbox
-                  id={kekkeiGenkai.attributes.name.toLowerCase()}
-                  checked={selectedKekkeiGenkais.includes(
-                    kekkeiGenkai.attributes.name
-                  )}
+                  id={kekkeiGenkai.name.toLowerCase()}
+                  checked={selectedKekkeiGenkais.includes(kekkeiGenkai.name)}
                   onCheckedChange={() =>
-                    handleKekkeiGenkaiChange(kekkeiGenkai.attributes.name)
+                    handleKekkeiGenkaiChange(kekkeiGenkai.name)
                   }
                 />
                 <label
-                  htmlFor={kekkeiGenkai.attributes.name.toLowerCase()}
+                  htmlFor={kekkeiGenkai.name.toLowerCase()}
                   className="flex items-center gap-2 text-base leading-tight"
                 >
-                  {kekkeiGenkai.attributes.name}{" "}
+                  {kekkeiGenkai.name}{" "}
                   <img
-                    src={`http://localhost:1337${kekkeiGenkai.attributes.image.data.attributes.url}`}
+                    src={`http://localhost:1337${kekkeiGenkai.image.url}`}
                     className="h-5"
                     alt=""
                   />

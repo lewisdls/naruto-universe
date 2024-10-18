@@ -51,7 +51,7 @@ export const getClassifications = async () => {
 };
 
 export const getJutsus = async () => {
-  let res = await fetch(`${API_URL}/jutsus?populate=*`);
+  let res = await fetch(`${API_URL}/jutsus?populate=*&sort=createdAt`);
   if (!res.ok) throw new Error("Failed to fetch jutsus");
   return res.json();
 };
@@ -60,6 +60,6 @@ export const getJutsu = async (id: string | string[]) => {
   let res = await fetch(
     `${API_URL}/jutsus/${id}?populate[0]=*&populate[parent_jutsu][populate]=images&populate[derived_jutsu][populate]=images&populate[classification]=*&populate[nature][populate]=image&populate[kekkei_genkai][populate]=image&populate[users][populate]=images&populate[images]=*`
   );
-  if (!res.ok) throw new Error("Failed to fetch jutsus");
+  if (!res.ok) throw new Error("Failed to fetch jutsu");
   return res.json();
 };
