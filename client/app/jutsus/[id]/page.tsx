@@ -127,11 +127,7 @@ const Jutsu = () => {
         {jutsu?.nature.map((n) => (
           <div key={n.id} className="flex items-center gap-2 leading-relaxed">
             <p>{n.name}</p>
-            <img
-              src={`http://localhost:1337${n.image.url}`}
-              className="h-5"
-              alt=""
-            />
+            <img src={n.image.url} className="h-5" alt="" />
           </div>
         ))}
       </div>
@@ -169,11 +165,7 @@ const Jutsu = () => {
         {jutsu?.kekkei_genkai.map((kekkei) => (
           <div key={kekkei.id} className="flex items-center gap-2">
             <p>{kekkei.name}</p>
-            <img
-              src={`http://localhost:1337${kekkei.image.url}`}
-              className="h-5"
-              alt=""
-            />
+            <img src={kekkei.image.url} className="h-5" alt="" />
           </div>
         ))}
       </div>
@@ -210,7 +202,7 @@ const Jutsu = () => {
                   style={{ transform: `translateX(-${slide * 100}%)` }}
                 >
                   <img
-                    src={"http://localhost:1337" + image.url}
+                    src={image.url}
                     className="w-full h-full object-cover"
                     alt=""
                   />
@@ -257,7 +249,7 @@ const Jutsu = () => {
                   className="relative group w-full"
                 >
                   <img
-                    src={`http://localhost:1337${parent.images[0].url}`}
+                    src={parent.images[0].url}
                     alt={parent.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />
@@ -284,7 +276,7 @@ const Jutsu = () => {
                   className="relative group w-full"
                 >
                   <img
-                    src={`http://localhost:1337${derived.images[0].url}`}
+                    src={derived.images[0].url}
                     alt={derived.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />
@@ -311,9 +303,7 @@ const Jutsu = () => {
                   className="relative group"
                 >
                   <img
-                    src={`http://localhost:1337${
-                      user.images[user.images.length - 1].url
-                    }`}
+                    src={user.images[user.images.length - 1].url}
                     alt={user.name}
                     className="w-full h-40 md:h-32 object-cover"
                   />

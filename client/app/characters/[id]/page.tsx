@@ -139,7 +139,7 @@ const Character = () => {
                     <div className="flex items-center gap-2">
                       <p>{character?.clan.name.split(" ")[0]}</p>
                       <img
-                        src={`http://localhost:1337${character?.clan.symbol.url}`}
+                        src={character?.clan.symbol.url}
                         className="h-5 bg-white rounded-full"
                         alt=""
                       />{" "}
@@ -165,7 +165,7 @@ const Character = () => {
                 key={image.id}
                 className="object-cover min-w-[100vw] lg:min-w-[100%] transition-all duration-500"
                 style={{ transform: `translateX(-${slide * 100}%)` }}
-                src={"http://localhost:1337" + image.url}
+                src={image.url}
                 alt=""
               />
             ))}
@@ -201,11 +201,7 @@ const Character = () => {
                   {character?.nature.map((n) => (
                     <div key={n.id} className="flex items-center gap-2">
                       <p>{n.name}</p>
-                      <img
-                        src={`http://localhost:1337${n.image.url}`}
-                        className="h-5"
-                        alt={n.name}
-                      />
+                      <img src={n.image.url} className="h-5" alt={n.name} />
                     </div>
                   ))}
                 </div>
@@ -220,11 +216,7 @@ const Character = () => {
                   {character?.kekkei_genkai.map((n) => (
                     <div key={n.id} className="flex items-center gap-2">
                       <p>{n.name}</p>
-                      <img
-                        src={`http://localhost:1337${n.image.url}`}
-                        className="h-5"
-                        alt={n.name}
-                      />
+                      <img src={n.image.url} className="h-5" alt={n.name} />
                     </div>
                   ))}
                 </div>
@@ -246,7 +238,7 @@ const Character = () => {
                 className="relative group"
               >
                 <img
-                  src={`http://localhost:1337${jutsu.images[0].url}`}
+                  src={jutsu.images[0].url}
                   alt={jutsu.name}
                   className="w-full h-40 md:h-32 object-cover"
                 />

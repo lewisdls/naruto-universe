@@ -260,9 +260,7 @@ const Jutsus = () => {
                 {jutsu.images && (
                   <div className="md:h-[250px] w-full">
                     <img
-                      src={`http://localhost:1337${
-                        jutsu.images[jutsu.images.length - 1].url
-                      }`}
+                      src={jutsu.images[jutsu.images.length - 1].url}
                       alt={jutsu.name}
                       className="object-cover w-full h-full rounded-t-md"
                     />

@@ -57,7 +57,7 @@ export default function Home() {
         <div className="flex items-center justify-center h-[calc(100vh-3.5rem)]">
           <div className="relative h-full w-full after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-50">
             <img
-              src={`http://localhost:1337${header?.image.url}`}
+              src={header?.image.url}
               alt=""
               className={`h-full w-full object-cover transition-all duration-500 ${
                 isVisible ? "opacity-100" : "opacity-0"

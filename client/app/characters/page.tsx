@@ -138,9 +138,7 @@ const Characters = () => {
               >
                 <div className="xl:h-[250px] w-full">
                   <img
-                    src={`http://localhost:1337${
-                      character.images[character.images.length - 1].url
-                    }`}
+                    src={character.images[character.images.length - 1].url}
                     alt={character.name}
                     className="object-cover w-full h-full rounded-t-md"
                   />

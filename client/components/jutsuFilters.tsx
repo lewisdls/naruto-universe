@@ -175,11 +175,7 @@ const JutsuFilters = ({ onFilterChange }: FiltersProps) => {
                   className="flex items-center gap-2 text-base leading-none"
                 >
                   {nature.name}{" "}
-                  <img
-                    src={`http://localhost:1337${nature.image.url}`}
-                    className="h-5"
-                    alt=""
-                  />
+                  <img src={nature.image.url} className="h-5" alt="" />
                 </label>
               </div>
             ))}
@@ -204,11 +200,7 @@ const JutsuFilters = ({ onFilterChange }: FiltersProps) => {
                   className="flex items-center gap-2 text-base leading-tight"
                 >
                   {kekkeiGenkai.name}{" "}
-                  <img
-                    src={`http://localhost:1337${kekkeiGenkai.image.url}`}
-                    className="h-5"
-                    alt=""
-                  />
+                  <img src={kekkeiGenkai.image.url} className="h-5" alt="" />
                 </label>
               </div>
             ))}
