@@ -76,8 +76,6 @@ const Characters = () => {
     loadData();
   }, []);
 
-  console.log(filters);
-
   useEffect(() => {
     // Filter the characters based on selected clans and affiliations
     const filtered = characters.filter((character) => {
