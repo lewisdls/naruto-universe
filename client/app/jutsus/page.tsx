@@ -253,6 +253,7 @@ const Jutsus = () => {
             paginatedJutsus.map((jutsu: Jutsu) => (
               <Link
                 href={`/jutsus/${jutsu.documentId}`}
+                target="_blank"
                 key={jutsu.documentId}
                 className="flex flex-col border-[#242424] border-[1px] rounded-md w-fit"
               >
